@@ -1,0 +1,9 @@
+python-dotenv
+litellm
+flask
+flask-cors
+gunicorn
+pytesseract
+Pillow
+pdfplumber
+python-docx

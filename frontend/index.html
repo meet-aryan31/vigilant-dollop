@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fraud Call Detector</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Audio → Fraud Check</h1>
+    <p class="sub">Upload a call recording. Transcribed (Hindi/English) and checked for fraud patterns.</p>
+
+    <div class="chain" id="chain">chain: loading…</div>
+
+    <label class="drop" id="drop" for="file">Click to choose an audio file</label>
+    <input type="file" id="file" accept=".mp3,.wav,.m4a,.flac,.ogg,.webm,.aac,.wma" />
+
+    <button id="go" disabled>Analyze</button>
+    <div id="status"></div>
+    <div id="result"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

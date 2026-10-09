@@ -1,0 +1,3 @@
+# Optional local STT fallback (NOT needed for deploy - Groq STT is the primary).
+# Install only where a local whisper fallback is wanted: pip install -r requirements-local-stt.txt
+openai-whisper

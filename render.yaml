@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: stt-fraud-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120
+    healthCheckPath: /health
+    envVars:
+      - key: FLASK_DEBUG
+        value: '0'
+      - key: STT_PROVIDER
+        value: groq
+      - key: STT_LANGUAGE
+        value: auto
+      - key: FRAUD_TEMPERATURE
+        value: '0.1'
+      - key: LLM_TEMPERATURE
+        value: '0.7'
+      - key: LLM_MAX_TOKENS
+        value: '2048'
+      - key: WHISPER_MODEL
+        value: base
+      - key: LLM_CHAIN
+        value: 'groq/qwen/qwen3.8-27b,groq/openai/gpt-oss-120b,groq/openai/gpt-oss-20b,gemini/gemini-2.5-flash,gemini/gemini-3.8-flash,gemini/gemini-flash-latest'
+      - key: LLM_SYSTEM_PROMPT
+        value: 'You are a helpful assistant. list all the contents in it propperly.'
+      - key: prompt_img
+        value: 'You are an image analysis expert. Extract all visible text (OCR) and describe every element in the image in detail, in markdown.'
+      - key: prompt_video
+        value: 'You are a video analysis expert. Summarize what happens in this video, list scenes in order, and quote any spoken dialogue.'
+      - key: prompt_audio
+        value: 'You are an audio analysis expert. Transcribe summary: identify the speaker''s topic, key points, and tone.'
+      - key: prompt_fraud
+        value: 'You are a call-verification analyst. The user text is a timestamped transcript of a phone call in English, Hindi, or mixed (Hinglish). Decide whether the caller is a fraudster. Watch for demands for OTP, PIN, card or account details; impersonation of bank, support, or government staff; threats or false urgency; gift-card or money-transfer requests; tech-support scams; phishing links; and requests to share verification codes. Respond with ONLY a valid JSON object and no other text, in exactly this shape: {"verdict": "fraud" or "legit", "confidence": 0.0 to 1.0, "reason": "2-4 sentences quoting the transcript verbatim with [mm:ss] timestamps as evidence"}. The reason must be grounded only in words present in the transcript - never invent speakers, events, or words. Transcripts may contain speech-recognition errors; quote exactly what appears.'
+      - key: LLM_API_KEYS
+        sync: false
+      - key: FRONTEND_ORIGINS
+        sync: false
